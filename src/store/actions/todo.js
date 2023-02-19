@@ -1,6 +1,7 @@
 import TodoApi from "../../api/TodoApi";
 
 export const TODO_SET_LIST_ACTION = 'setList';
+export const TODO_UPDATE_ACTION = 'update';
 export const TODO_CREATE_ACTION = 'create';
 export const TODO_REMOVE_ACTION = 'remove';
 export const TODO_EDIT_ACTION = 'edit';
@@ -29,6 +30,30 @@ export function loading () {
     return { type: TODO_LOADING_ACTION, payload: true }
 }
 
+export function save (todo) {
+    return (dispatch) => {      //вариант если надо получить состояние тут (dispatch, getState)
+        dispatch(loading())
+
+        if (todo.id) { //edit
+            TodoApi
+                .update(todo.id, todo)
+                .then(() => {
+                    dispatch(update(todo))
+                })
+
+        } else {  //create
+            TodoApi
+                .create(todo)
+                .then((newTodo) => {
+                    dispatch(create(newTodo))
+                })
+        }
+    }
+}
+
+export function update (todo) {
+    return { type: TODO_UPDATE_ACTION, payload: todo }
+}
 export function create (todo) {
     return { type: TODO_CREATE_ACTION, payload: todo }
 }

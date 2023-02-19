@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { create } from '../../store/actions/todo'
+import {create, save} from '../../store/actions/todo'
 
 export default function Header() {
     const todo = useSelector(state => state.todo.editTodo)
@@ -15,11 +15,10 @@ export default function Header() {
         e.preventDefault()
 
         const newTodo = {
-            id: Math.random().toString(),
             ...todo,
             title,
         };
-        dispatch(create(newTodo))
+        dispatch(save(newTodo))
         setTitle('');
     }
 
