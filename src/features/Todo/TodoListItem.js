@@ -1,12 +1,12 @@
 import { useDispatch } from 'react-redux'
-import {check, edit, remove} from '../../store/actions/todo'
+import {checkRequest, edit, removeRequest} from '../../store/actions/todo'
 
 export default function TodoListItem ({ todo }) {
     const dispatch = useDispatch();
 
 
     function onRemoveBtnClick () {
-        dispatch(remove(todo.id));
+        dispatch(removeRequest(todo.id));
     }
 
     function onEditBtnClick () {
@@ -14,7 +14,7 @@ export default function TodoListItem ({ todo }) {
     }
 
     function onCheckClick () {
-        dispatch(check(todo))
+        dispatch(checkRequest(todo))
     }
 
     return (

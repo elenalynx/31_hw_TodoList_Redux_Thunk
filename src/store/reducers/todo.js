@@ -31,7 +31,11 @@ export default function todoReducer(state = initialState, {type, payload}) {
             }
         case TODO_CREATE_ACTION: return { ...state, list: [...state.list, payload], loading: false }
         case TODO_REMOVE_ACTION:
-            return { ...state, list: state.list.filter(todo => todo.id !== payload) }
+            return {
+                ...state,
+                list: state.list.filter(todo => todo.id !== payload),
+                loading: false
+            }
         case TODO_EDIT_ACTION:
             return { ...state, editTodo: payload }
         case TODO_CHECK_ACTION:
@@ -40,10 +44,14 @@ export default function todoReducer(state = initialState, {type, payload}) {
                 done: payload.done === false,
             };
 
-            // console.log(payload)
-            // console.log(newTodo)
+            console.log(payload)
+            console.log(newTodo)
 
-            return { ...state, list: state.list.map(todoItem => todoItem.id === newTodo.id ? newTodo : todoItem) };
+            return {
+                ...state,
+                list: state.list.map(todoItem => todoItem.id === newTodo.id ? newTodo : todoItem),
+                loading: false
+            };
         case TODO_SET_LIST_ACTION: return { ...state, list: payload, loading: false }
         case TODO_LOADING_ACTION: return { ...state, loading: payload }
         default:
